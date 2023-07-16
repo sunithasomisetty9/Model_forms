@@ -1,6 +1,10 @@
 from django.db import models
-
+from django import forms
+from django.core import validators
 # Create your models here.
+def check_for_a(value):
+    if value[0].lower()=='a':
+        raise forms.ValidationError('value started with a')
 
 class Topic(models.Model):
     topic_name=models.CharField(max_length=20,primary_key=True)
@@ -11,7 +15,7 @@ class Topic(models.Model):
 
 class Webpage(models.Model):
     topic_name=models.ForeignKey(Topic,on_delete=models.CASCADE)
-    name=models.CharField(max_length=20)
+    name=models.CharField(max_length=20,validators=[check_for_a,validators.MinLengthValidator(5)])
     url=models.URLField()
 
     def __str__(self):

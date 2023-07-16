@@ -25,6 +25,8 @@ def insert_webpage(request):
         if WMFOD.is_valid():
             WMFOD.save()
             return HttpResponse("Insertion of data is done successfully")
+        else:
+            return HttpResponse('invalid data')
 
     return render(request,'insert_webpage.html',d)
 
